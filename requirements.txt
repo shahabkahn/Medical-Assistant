@@ -1,0 +1,16 @@
+langchain
+torch
+accelerate
+transformers
+sentence_transformers
+streamlit
+streamlit_chat
+faiss-cpu
+huggingface-hub
+fastapi
+python-dotenv
+requests
+validators
+uvicorn
+pypdf
+ctransformers
