@@ -12,15 +12,6 @@ import logging
 
 app = FastAPI()
 
-# CORS configuration
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -34,10 +25,10 @@ except Exception as e:
     logger.error(f"Failed to load vector database: {e}")
     raise e
 
-# Load LLM
+# Load LLM using ctransformers
 try:
     llm = CTransformers(
-        model="llama-2-7b-chat.ggmlv3.q4_0.bin",
+        model="TheBloke/Llama-2-7B-Chat-GGML",
         model_type="llama",
         max_new_tokens=128,
         temperature=0.5,
