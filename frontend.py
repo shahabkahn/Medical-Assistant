@@ -9,11 +9,15 @@ load_dotenv()
 url = "https://shahabkahn-medical-assistant.hf.space/query"
 
 # Initialize the session state
-st.session_state.setdefault("chat_history", [])
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+if "user_input" not in st.session_state:
+    st.session_state.user_input = ""
 
 # Function to handle the new chat button click
 def new_chat():
     st.session_state.chat_history = []  # Clear the chat history
+    st.session_state.user_input = ""    # Clear the user input
 
 # Streamlit app
 def app():
@@ -26,17 +30,8 @@ def app():
              unsafe_allow_html=True)
 
     # Placeholder text for the input box
-    input_placeholder = st.empty()
-    input_text = input_placeholder.text_input("Lets Chat", key="user_input", help="Type your question here...")
-
-    # JavaScript to handle the placeholder behavior
-    placeholder_script = f"""
-    <script>
-        const inputElement = document.querySelector('input[data-baseweb="input"]');
-        inputElement.placeholder = "Enter your question";
-    </script>
-    """
-    st.markdown(placeholder_script, unsafe_allow_html=True)
+    input_text = st.text_input("Let's Chat", placeholder="Enter your question here...", 
+                               key="user_input", help="Type your question here...")
 
     # Handle form submission
     submit_button = st.button("➡️")
