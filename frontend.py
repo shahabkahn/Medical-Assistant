@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 # Define the URL of your FastAPI endpoint
-url = "https://shahabkahn-medical-assistant.hf.space"
+url = "https://shahabkahn-medical-assistant.hf.space/query"
 
 # Initialize the session state
 st.session_state.setdefault("chat_history", [])
