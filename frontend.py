@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 # Define the URL of your FastAPI endpoint
-url = "http://localhost:8000/query"
+url = "http://localhost:7860/query"
 
 # Initialize the session state
 st.session_state.setdefault("chat_history", [])
