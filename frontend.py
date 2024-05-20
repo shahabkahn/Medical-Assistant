@@ -27,7 +27,7 @@ def app():
 
     # Placeholder text for the input box
     input_placeholder = st.empty()
-    input_text = input_placeholder.text_input("Your Question", key="user_input", help="Type your question here...")
+    input_text = input_placeholder.text_input("Lets Chat", key="user_input", help="Type your question here...")
 
     # JavaScript to handle the placeholder behavior
     placeholder_script = f"""
