@@ -11,14 +11,13 @@ url = "https://shahabkahn-medical-assistant.hf.space/query"
 # Initialize the session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
-
 if "user_input" not in st.session_state:
     st.session_state.user_input = ""
 
 # Function to handle the new chat button click
 def new_chat():
     st.session_state.chat_history = []  # Clear the chat history
-    st.session_state.user_input = ""  # Clear the user input
+    st.session_state.user_input = ""    # Clear the user input
 
 # Streamlit app
 def app():
@@ -27,13 +26,12 @@ def app():
     st.image("2.jpg", width=300)
 
     # Display Welcome message
-    st.write("<span style='font-size:20px; font-weight:bold;'>Welcome! How Can I Help You</span>", unsafe_allow_html=True)
+    st.write("<span style='font-size:20px; font-weight:bold;'>Welcome! How Can I Help You</span>", 
+             unsafe_allow_html=True)
 
     # Placeholder text for the input box
-    input_text = st.text_input("Your Question", placeholder="Enter your question here...", key="user_input", help="Type your question here...")
-
-    # Update the user_input in session state before creating the widget
-    st.session_state.user_input = input_text
+    input_text = st.text_input("", placeholder="Enter your question here...", 
+                               key="user_input", help="Type your question here...")
 
     # Handle form submission
     submit_button = st.button("➡️")
@@ -51,6 +49,9 @@ def app():
                     answer = response.json().get("answer")
                     st.session_state.chat_history.append({"role": "user", "content": user_input})
                     st.session_state.chat_history.append({"role": "assistant", "content": answer})
+                    # Clear the user input after submission
+                    st.session_state.user_input = ""
+                    st.experimental_rerun()  # Rerun the app to clear the input field
                 else:
                     st.error(f"Error: {response.status_code} {response.text}")
             except requests.RequestException as e:
