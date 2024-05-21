@@ -30,7 +30,7 @@ def app():
              unsafe_allow_html=True)
 
     # Placeholder text for the input box
-    input_text = st.text_input("Let's Chat", placeholder="Enter your question here...", 
+    input_text = st.text_input("Your Question", placeholder="Enter your question here...", 
                                key="user_input", help="Type your question here...")
 
     # Handle form submission
@@ -49,6 +49,8 @@ def app():
                     answer = response.json().get("answer")
                     st.session_state.chat_history.append({"role": "user", "content": user_input})
                     st.session_state.chat_history.append({"role": "assistant", "content": answer})
+                    # Clear the user input after submission
+                    st.session_state.user_input = ""
                 else:
                     st.error(f"Error: {response.status_code} {response.text}")
             except requests.RequestException as e:
