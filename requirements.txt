@@ -2,6 +2,7 @@ langchain
 langchain_community
 torch
 accelerate
+asyncio
 transformers
 sentence_transformers
 streamlit
