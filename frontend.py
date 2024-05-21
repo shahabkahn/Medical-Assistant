@@ -13,11 +13,13 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "user_input" not in st.session_state:
     st.session_state.user_input = ""
+if "input_reset" not in st.session_state:
+    st.session_state.input_reset = False
 
 # Function to handle the new chat button click
 def new_chat():
     st.session_state.chat_history = []  # Clear the chat history
-    st.session_state.user_input = ""    # Clear the user input
+    st.session_state.input_reset = True # Set the flag to reset the input
 
 # Streamlit app
 def app():
@@ -30,8 +32,16 @@ def app():
              unsafe_allow_html=True)
 
     # Placeholder text for the input box
-    input_text = st.text_input("", placeholder="Enter your question here...", 
-                               key="user_input", help="Type your question here...")
+    if st.session_state.input_reset:
+        input_text = st.text_input("", placeholder="Enter your question here...", 
+                                   key="user_input_reset", help="Type your question here...")
+        if input_text:
+            st.session_state.user_input = input_text
+            st.session_state.input_reset = False
+            st.experimental_rerun()
+    else:
+        input_text = st.text_input("", placeholder="Enter your question here...", 
+                                   key="user_input", help="Type your question here...")
 
     # Handle form submission
     submit_button = st.button("➡️")
@@ -50,7 +60,7 @@ def app():
                     st.session_state.chat_history.append({"role": "user", "content": user_input})
                     st.session_state.chat_history.append({"role": "assistant", "content": answer})
                     # Clear the user input after submission
-                    st.session_state.user_input = ""
+                    st.session_state.input_reset = True
                     st.experimental_rerun()  # Rerun the app to clear the input field
                 else:
                     st.error(f"Error: {response.status_code} {response.text}")
